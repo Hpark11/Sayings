@@ -20,11 +20,7 @@ class DataService {
     
     func fetchImage(imageUrl: String, completion: @escaping (UIImage) -> ()) {
         Alamofire.request(imageUrl).responseJSON { response in
-            print(response.request)  // original URL request
-            print(response.response) // HTTP URL response
-            print(response.data)     // server data
-            print(response.result)   // result of response serialization
-            
+
             if let data = response.data {
                 let image = UIImage(data: data)
                 completion(image!)
@@ -45,7 +41,6 @@ class DataService {
             
             if let result = response.result.value {
                 if let JSON = result as? [String: AnyObject] {
-                    print(JSON)
                     if let sayingData = JSON["saying"] as? [String: AnyObject] {
                         let saying = Saying(data: sayingData)
                         completion(saying)
@@ -67,8 +62,10 @@ class DataService {
             }
             
             if let result = response.result.value {
-                if let JSON = result as? [[String: AnyObject]] {
-                    completion(JSON.map({return Saying(data: $0)}))
+                if let JSON = result as? [String: AnyObject] {
+                    if let sayingsData = JSON["sayings"] as? [[String: AnyObject]] {
+                        completion(sayingsData.map({return Saying(data: $0)}))
+                    }
                 }
             }
         }
