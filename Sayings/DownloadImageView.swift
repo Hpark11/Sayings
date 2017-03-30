@@ -1,17 +1,7 @@
 
 import UIKit
 
-let imageCache: NSCache<NSString, UIImage> = NSCache()
-
 class DownloadImageView : UIImageView {
-    
-    var imageUrlString: String? {
-        didSet {
-            if let imageUrlString = imageUrlString {
-                loadImageUsingUrlString(urlString: imageUrlString)
-            }
-        }
-    }
     
     func loadImageUsingUrlString(urlString: String) {
         let url: URL? = URL(string: urlString)

@@ -16,7 +16,11 @@ class SayingsViewCell: UITableViewCell {
     var saying: Saying? {
         didSet {
             if let imageUrl = saying?.image_url {
-                mainImageView.imageUrlString = imageUrl
+                DataService.instance.fetchImage(imageUrl: imageUrl, completion: { (image) in
+                    DispatchQueue.main.async(execute: {
+                        self.mainImageView.image = image
+                    })
+                })
             }
             
             if let body = saying?.body, let author = saying?.author {
@@ -32,7 +36,7 @@ class SayingsViewCell: UITableViewCell {
             NSForegroundColorAttributeName: UIColor.white
             ])
         
-        attributedText.append(NSAttributedString(string: "\n\n\(author)", attributes: [
+        attributedText.append(NSAttributedString(string: "\n\n- \(author) -", attributes: [
             NSFontAttributeName: UIFont.systemFont(ofSize: 12),
             NSForegroundColorAttributeName: UIColor.white
             ]))

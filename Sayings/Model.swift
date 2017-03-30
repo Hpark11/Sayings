@@ -18,6 +18,8 @@ class Saying: NSObject {
     override init() {}
     init(data: [String: AnyObject]) {
         super.init()
-        setValuesForKeys(data)
+        self.body = data["body"] as? String
+        self.author = data["author"]  as? String
+        self.image_url = data["image_url"] as? String
     }
 }

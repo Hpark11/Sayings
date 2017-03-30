@@ -44,3 +44,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+let imageCache: NSCache<NSString, UIImage> = NSCache()
+

@@ -12,11 +12,25 @@ import Alamofire
 class DataService {
     static let instance = DataService()
     
-    let endpoint = "54.250.206.25:3000"
+    let endpoint = "http://54.250.206.25:3000"
     let headers: HTTPHeaders = [
         "UserEmail": "user@todait.com",
         "UserToken": "dGUrT-tcX635Q43ka3wU"
     ]
+    
+    func fetchImage(imageUrl: String, completion: @escaping (UIImage) -> ()) {
+        Alamofire.request(imageUrl).responseJSON { response in
+            print(response.request)  // original URL request
+            print(response.response) // HTTP URL response
+            print(response.data)     // server data
+            print(response.result)   // result of response serialization
+            
+            if let data = response.data {
+                let image = UIImage(data: data)
+                completion(image!)
+            }
+        }
+    }
     
     func fetchTodaysSaying(date: String, completion: @escaping (Saying) -> ()) {
 
@@ -30,9 +44,12 @@ class DataService {
             }
             
             if let result = response.result.value {
-                if let JSON = result as? [String: AnyObject], let sayingData = JSON["saying"] as? [String: AnyObject] {
-                    let saying = Saying(data: sayingData)
-                    completion(saying)
+                if let JSON = result as? [String: AnyObject] {
+                    print(JSON)
+                    if let sayingData = JSON["saying"] as? [String: AnyObject] {
+                        let saying = Saying(data: sayingData)
+                        completion(saying)
+                    }
                 }
             }
         }
