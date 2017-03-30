@@ -19,7 +19,7 @@ class TodaysSayingViewController: UIViewController {
 
         view.backgroundColor = .black
         
-        DataService.instance.fetchTodaysSaying(date: "20170329") { (saying) in
+        DataService.instance.fetchTodaysSaying(date: getDateInfo()) { (saying) in
             if let imageUrl = saying.image_url {
                 DataService.instance.fetchImage(imageUrl: imageUrl, completion: { (image) in
                     DispatchQueue.main.async(execute: {
@@ -53,12 +53,7 @@ class TodaysSayingViewController: UIViewController {
             NSFontAttributeName: UIFont.systemFont(ofSize: 12),
             NSForegroundColorAttributeName: UIColor.white
             ]))
-        
-        // center alignment
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: attributedText.string.characters.count))
-        
+
         sayingLabel.attributedText = attributedText
     }
 }

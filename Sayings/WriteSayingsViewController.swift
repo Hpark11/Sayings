@@ -35,6 +35,10 @@ class WriteSayingsViewController: UITableViewController {
         saying.id = 1
         saying.image_url = "https://qqqqq.com"
         
-        DataService.instance.writeSaying(saying: saying)
+        DataService.instance.writeSaying(saying: saying) { (result) in
+            if result == true {
+                _ = self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
 }

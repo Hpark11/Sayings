@@ -40,12 +40,7 @@ class SayingsViewCell: UITableViewCell {
             NSFontAttributeName: UIFont.systemFont(ofSize: 12),
             NSForegroundColorAttributeName: UIColor.white
             ]))
-        
-        // center alignment
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: attributedText.string.characters.count))
-        
+
         sayingLabel.attributedText = attributedText
         
     }

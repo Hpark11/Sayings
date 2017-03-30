@@ -34,7 +34,7 @@ class DataService {
             
             switch response.result {
             case .success:
-                print("Validation Successful")
+                print("Successful")
             case .failure(let error):
                 print(error)
             }
@@ -56,7 +56,7 @@ class DataService {
             
             switch response.result {
             case .success:
-                print("Validation Successful")
+                print("Successful")
             case .failure(let error):
                 print(error)
             }
@@ -71,7 +71,7 @@ class DataService {
         }
     }
     
-    func writeSaying(saying: Saying) {
+    func writeSaying(saying: Saying, completion: @escaping (Bool) -> ()) {
         
         guard let body = saying.body else {
             return
@@ -101,9 +101,11 @@ class DataService {
             print(response)
             switch response.result {
             case .success:
-                print("Validation Successful")
+                print("Successful")
+                completion(true)
             case .failure(let error):
                 print(error)
+                completion(false)
             }
         }
     }
